@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lou · Planning Pilates</title>
+<meta name="description" content="Tous les cours de Pilates de Lou Carretero en un seul planning : El Pilates Studio (Cranves-Sales) et Champel Santé (Genève).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf6f1;
+    --card: #ffffff;
+    --ink: #2d2a26;
+    --ink-soft: #6f675e;
+    --line: #e9e1d7;
+    --accent: #b3654a;        /* terracotta — El Pilates Studio */
+    --accent-soft: #f6e8e2;
+    --accent2: #5f7d6b;       /* sauge — Champel Santé */
+    --accent2-soft: #e7efe9;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Outfit', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; }
+
+  header { text-align: center; padding: 56px 0 8px; }
+  header .kicker {
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 9vw, 52px);
+    font-weight: 500; line-height: 1.1; margin-top: 10px;
+  }
+  header .sub { color: var(--ink-soft); margin-top: 12px; font-size: 16px; font-weight: 300; }
+
+  .filters {
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    margin: 28px 0 8px; position: sticky; top: 0; z-index: 5;
+    padding: 12px 0; background: linear-gradient(var(--bg) 80%, transparent);
+  }
+  .chip {
+    border: 1px solid var(--line); background: var(--card); color: var(--ink-soft);
+    padding: 8px 16px; border-radius: 999px; font-size: 14px; font-family: inherit;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .chip:hover { border-color: var(--ink-soft); }
+  .chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .status { text-align: center; color: var(--ink-soft); padding: 48px 0; font-weight: 300; }
+  .status .spin {
+    width: 26px; height: 26px; margin: 0 auto 14px; border-radius: 50%;
+    border: 2px solid var(--line); border-top-color: var(--accent);
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .warn {
+    background: #fdf3e4; border: 1px solid #f0dcb8; color: #7a5c22;
+    border-radius: var(--radius); padding: 12px 16px; font-size: 14px; margin: 16px 0;
+  }
+
+  .day { margin-top: 34px; }
+  .day-label {
+    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .day-label small { font-family: 'Outfit'; font-weight: 300; color: var(--ink-soft); font-size: 14px; }
+  .day-line { height: 1px; background: var(--line); margin: 10px 0 14px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 16px 18px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 1px 2px rgba(45,42,38,.04);
+  }
+  .card .time { text-align: center; min-width: 62px; }
+  .card .time .start { font-weight: 600; font-size: 17px; }
+  .card .time .dur { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .card .body { flex: 1; min-width: 0; }
+  .card .title { font-weight: 500; font-size: 16px; }
+  .card .place { font-size: 13.5px; color: var(--ink-soft); margin-top: 3px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .dot.s1 { background: var(--accent); }
+  .dot.s2 { background: var(--accent2); }
+  .tag {
+    display: inline-block; font-size: 11.5px; font-weight: 600; letter-spacing: .04em;
+    padding: 2px 9px; border-radius: 999px; margin-top: 7px;
+  }
+  .tag.full { background: #f3ece4; color: #96552e; }
+  .book {
+    flex: none; text-decoration: none; font-size: 14px; font-weight: 500;
+    padding: 9px 16px; border-radius: 999px; transition: all .15s ease; white-space: nowrap;
+  }
+  .book.s1 { background: var(--accent-soft); color: var(--accent); }
+  .book.s1:hover { background: var(--accent); color: #fff; }
+  .book.s2 { background: var(--accent2-soft); color: var(--accent2); }
+  .book.s2:hover { background: var(--accent2); color: #fff; }
+  .book.disabled { background: #f0ede8; color: #b5aca0; pointer-events: none; }
+
+  .empty { text-align: center; color: var(--ink-soft); padding: 56px 0; font-weight: 300; }
+
+  footer {
+    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line);
+    font-size: 13.5px; color: var(--ink-soft); text-align: center;
+  }
+  footer .studios { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 16px; }
+  footer a { color: inherit; }
+  footer .legend { display: flex; align-items: center; gap: 7px; }
+
+  @media (max-width: 460px) {
+    .card { flex-wrap: wrap; }
+    .card .book { width: 100%; text-align: center; margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Pilates &amp; Bien-être</div>
+    <h1>Les cours de Lou</h1>
+    <p class="sub">Retrouvez tous mes cours à venir, à Cranves-Sales et à Genève, et réservez votre place en un clic.</p>
+  </header>
+
+  <div class="filters" id="filters" hidden>
+    <button class="chip active" data-studio="all">Tous les lieux</button>
+    <button class="chip" data-studio="elpilates">El Pilates Studio</button>
+    <button class="chip" data-studio="champel">Champel Santé</button>
+  </div>
+
+  <div id="content">
+    <div class="status"><div class="spin"></div>Chargement du planning…</div>
+  </div>
+
+  <footer>
+    <div class="studios">
+      <span class="legend"><span class="dot s1"></span><a href="https://backoffice.bsport.io/m/El%20pilates%20Studio/5489/calendar?tabSelected=0" target="_blank" rel="noopener">El Pilates Studio · Cranves-Sales</a></span>
+      <span class="legend"><span class="dot s2"></span><a href="https://www.champelsante.ch/planning" target="_blank" rel="noopener">Champel Santé · Genève</a></span>
+    </div>
+    <div>Lou Carretero — instructrice de Pilates. Les réservations se font sur le site de chaque studio.</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var TZ = 'Europe/Zurich';
+  var HORIZON_DAYS = 42; // affiche jusqu'à 6 semaines de cours
+
+  // ————— Studio 1 : El Pilates Studio (bsport, API publique) —————
+  var BSPORT = {
+    api: 'https://api.production.bsport.io/api/v1',
+    company: 5489,
+    coachId: 128693, // lou carretero
+    bookUrl: 'https://backoffice.bsport.io/m/El%20pilates%20Studio/5489/calendar?tabSelected=0'
+  };
+
+  // ————— Studio 2 : Champel Santé (Supabase public + planning du site) —————
+  var CHAMPEL = {
+    api: 'https://knucrtezvcxsdxrwgzdq.supabase.co/rest/v1',
+    // Clé publique « publishable » embarquée dans le site champelsante.ch (lecture seule)
+    key: 'sb_publishable_Gp6ZZxwRQK97ZjdSzo1SUw_bei5MnOk',
+    instructorId: '95e7e189-6bf4-41d2-98d9-ea16fb2076e3', // Lou CARRETERO
+    bookUrl: 'https://www.champelsante.ch/planning',
+    place: 'Champel Santé · Genève'
+  };
+
+  // Le CMS (Sanity) de Champel Santé bloque les requêtes navigateur :
+  // on embarque la table id → nom de cours (elle change très rarement).
+  var CHAMPEL_ACTIVITIES = {
+    '1279b39c-4045-4d8c-a4f6-404cf43d637e': 'Atelier Mobilité de la Hanche',
+    '1a26d63f-6690-432f-a39b-999b37262f87': 'Respiration',
+    '2f84b212-f7d4-48f7-a411-1e61188b1081': 'Running Academy',
+    '35c79270-1a82-47d2-85eb-67fdf7a28a28': 'Coaching Mental',
+    '5a93074a-598f-4a05-aca4-420baac51a91': 'Yoga aérien',
+    '6c356339-4856-4824-b5ad-7054dd08d5fb': 'Atelier nutrition',
+    '746886d4-79cd-4929-9993-59c209cad1fd': 'Boxe',
+    '91fb06e6-1cde-49af-b95c-9cf52f12a177': 'Pilates',
+    'a54c0f4f-4aaa-4cb3-b1dd-70e55f32aa69': 'Circuit training',
+    'b1074224-c18e-4e3b-ac80-edfd3451e756': 'Yoga',
+    'c7203489-f18a-4579-a583-071308354276': 'Circuit training Ado',
+    'e388a8eb-c01d-4d58-808b-bedaeb6cd22f': 'Power pilates',
+    'ea22b235-900b-4491-a0a2-56c72d35a89c': 'Circuit training Kids',
+    'faabcd7a-33df-42d0-827f-0cf8939ab249': 'Yoga vinyasa'
+  };
+
+  function getJSON(url, headers) {
+    return fetch(url, { headers: headers || {} }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + url);
+      return r.json();
+    });
+  }
+
+  // ————— Récupération El Pilates Studio —————
+  function fetchElPilates() {
+    var base = BSPORT.api + '/offer/minimal/?company=' + BSPORT.company +
+               '&only_future=true&page_size=200';
+    return Promise.all([
+      getJSON(base + '&coach=' + BSPORT.coachId),
+      getJSON(base + '&coach_override=' + BSPORT.coachId), // remplacements assurés par Lou
+      getJSON(BSPORT.api + '/meta-activity/?company=' + BSPORT.company + '&page_size=100'),
+      getJSON(BSPORT.api + '/establishment/?company=' + BSPORT.company)
+    ]).then(function (res) {
+      var activityNames = {};
+      (res[2].results || []).forEach(function (a) { activityNames[a.id] = a.name; });
+      var places = {};
+      (res[3].results || []).forEach(function (e) {
+        places[e.id] = e.title + (e.location && e.location.city ? ' · ' + e.location.city : '');
+      });
+
+      var seen = {};
+      return res[0].concat(res[1]).filter(function (o) {
+        if (seen[o.id]) return false;
+        seen[o.id] = true;
+        return true;
+      }).map(function (o) {
+        var start = new Date(o.date_start);
+        return {
+          studio: 'elpilates',
+          start: start,
+          end: new Date(start.getTime() + (o.duration_minute || 0) * 60000),
+          title: o.name_override || activityNames[o.meta_activity] || 'Cours de Pilates',
+          place: places[o.establishment] || 'El Pilates Studio',
+          full: o.available === false,
+          price: o.price ? Math.round(parseFloat(o.price)) + ' €' : '',
+          bookUrl: BSPORT.bookUrl
+        };
+      });
+    });
+  }
+
+  // ————— Récupération Champel Santé —————
+  function fetchChampel() {
+    var today = new Date().toISOString().slice(0, 10);
+    var url = CHAMPEL.api + '/sessions' +
+      '?select=start_time,end_time,sanity_activity_id,status,price,max_spots,booked_spots' +
+      '&instructor_id=eq.' + CHAMPEL.instructorId +
+      '&status=eq.confirmed' +
+      '&start_time=gte.' + today +
+      '&order=start_time.asc&limit=200';
+    return getJSON(url, { apikey: CHAMPEL.key }).then(function (rows) {
+      return rows.map(function (s) {
+        return {
+          studio: 'champel',
+          start: new Date(s.start_time),
+          end: new Date(s.end_time),
+          title: CHAMPEL_ACTIVITIES[s.sanity_activity_id] || 'Cours',
+          place: CHAMPEL.place,
+          full: s.max_spots != null && s.booked_spots >= s.max_spots,
+          price: s.price ? s.price + ' CHF' : '',
+          bookUrl: CHAMPEL.bookUrl
+        };
+      });
+    });
+  }
+
+  // ————— Affichage —————
+  var fmtDay = new Intl.DateTimeFormat('fr-FR', { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' });
+  var fmtTime = new Intl.DateTimeFormat('fr-FR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+  var fmtKey = new Intl.DateTimeFormat('fr-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  var allClasses = [];
+  var currentFilter = 'all';
+
+  function render() {
+    var content = document.getElementById('content');
+    var now = new Date();
+    var horizon = new Date(now.getTime() + HORIZON_DAYS * 86400000);
+
+    var list = allClasses.filter(function (c) {
+      return c.start > now && c.start < horizon &&
+        (currentFilter === 'all' || c.studio === currentFilter);
+    });
+
+    if (!list.length) {
+      content.innerHTML = '<div class="empty">Aucun cours à venir pour cette sélection.<br>' +
+        'Consultez directement les sites des studios pour les prochaines dates.</div>';
+      return;
+    }
+
+    list.sort(function (a, b) { return a.start - b.start; });
+
+    var html = '';
+    var lastKey = '';
+    list.forEach(function (c) {
+      var key = fmtKey.format(c.start);
+      if (key !== lastKey) {
+        if (lastKey) html += '</div>';
+        var todayKey = fmtKey.format(new Date());
+        var label = capitalize(fmtDay.format(c.start));
+        html += '<div class="day"><div class="day-label">' + esc(label) +
+          (key === todayKey ? '<small>aujourd’hui</small>' : '') +
+          '</div><div class="day-line"></div>';
+        lastKey = key;
+      }
+      var cls = c.studio === 'elpilates' ? 's1' : 's2';
+      html +=
+        '<div class="card">' +
+          '<div class="time"><div class="start">' + fmtTime.format(c.start) + '</div>' +
+            '<div class="dur">' + Math.round((c.end - c.start) / 60000) + ' min</div></div>' +
+          '<div class="body">' +
+            '<div class="title">' + esc(c.title) + '</div>' +
+            '<div class="place"><span class="dot ' + cls + '"></span>' + esc(c.place) +
+              (c.price ? ' — ' + esc(c.price) : '') + '</div>' +
+            (c.full ? '<span class="tag full">Complet</span>' : '') +
+          '</div>' +
+          (c.full
+            ? '<span class="book disabled">Complet</span>'
+            : '<a class="book ' + cls + '" href="' + esc(c.bookUrl) + '" target="_blank" rel="noopener">Réserver</a>') +
+        '</div>';
+    });
+    html += '</div>';
+    content.innerHTML = html;
+  }
+
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var btn = e.target.closest('.chip');
+    if (!btn) return;
+    currentFilter = btn.dataset.studio;
+    this.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+    btn.classList.add('active');
+    render();
+  });
+
+  // Charge les deux studios ; si l’un échoue, on affiche quand même l’autre.
+  Promise.allSettled([fetchElPilates(), fetchChampel()]).then(function (results) {
+    var failed = [];
+    results.forEach(function (r, i) {
+      if (r.status === 'fulfilled') {
+        allClasses = allClasses.concat(r.value);
+      } else {
+        failed.push(i === 0 ? 'El Pilates Studio' : 'Champel Santé');
+        console.error(r.reason);
+      }
+    });
+    document.getElementById('filters').hidden = false;
+    render();
+    if (failed.length) {
+      var warn = document.createElement('div');
+      warn.className = 'warn';
+      warn.textContent = 'Impossible de charger le planning de ' + failed.join(' et ') +
+        ' pour le moment — réessayez plus tard ou consultez son site directement.';
+      document.getElementById('content').prepend(warn);
+    }
+  });
+})();
+</script>
+</body>
+</html>
