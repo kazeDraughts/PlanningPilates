@@ -9,11 +9,13 @@ instructrice de Pilates, à partir des deux studios où elle enseigne :
 Pour chaque cours, la page affiche : la date, l'heure, la durée, le type de cours,
 le lieu, le prix, l'état (complet ou non) et un bouton **Réserver** :
 
-- **El Pilates Studio** : lien vers la fiche bsport du cours précis
-  (`backoffice.bsport.io/booker-module-s/5489/<id du cours>`), qui présente la
-  séance avant de proposer la réservation.
+- **El Pilates Studio** : lien vers le calendrier bsport du studio, positionné
+  sur la date du cours et filtré sur les cours de Lou
+  (`…/calendar?tabSelected=0&date=<AAAA-MM-JJ>&coaches=128693`). Le détail d'un
+  cours s'ouvre en pop-up sur ce calendrier et n'a pas d'URL propre.
 - **Champel Santé** : lien vers la page planning du site — leur réservation
-  s'ouvre dans une fenêtre sur cette page, il n'existe pas d'URL par séance.
+  s'ouvre dans une fenêtre sur cette page, il n'existe ni URL par séance ni
+  paramètre de date (vérifié : la page ignore `?date=…`).
 
 ## Fonctionnement
 

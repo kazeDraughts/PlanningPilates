@@ -162,8 +162,9 @@
     api: 'https://api.production.bsport.io/api/v1',
     company: 5489,
     coachId: 128693, // lou carretero
-    // Fiche du cours (présentation de la séance puis réservation) — id de l'offre à la fin
-    offerUrl: 'https://backoffice.bsport.io/booker-module-s/5489/'
+    // Calendrier public du studio ; il accepte en URL une date (ISO) sur laquelle
+    // se positionner et un filtre coach — le détail d'un cours n'a pas d'URL propre.
+    calendarUrl: 'https://backoffice.bsport.io/m/El%20pilates%20Studio/5489/calendar?tabSelected=0'
   };
 
   // ————— Studio 2 : Champel Santé (Supabase public + planning du site) —————
@@ -234,7 +235,8 @@
           place: places[o.establishment] || 'El Pilates Studio',
           full: o.available === false,
           price: o.price ? Math.round(parseFloat(o.price)) + ' €' : '',
-          bookUrl: BSPORT.offerUrl + o.id
+          bookUrl: BSPORT.calendarUrl + '&date=' + fmtKey.format(start) +
+                   '&coaches=' + BSPORT.coachId
         };
       });
     });
