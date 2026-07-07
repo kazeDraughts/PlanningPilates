@@ -97,6 +97,7 @@
     padding: 2px 9px; border-radius: 999px; margin-top: 7px;
   }
   .tag.full { background: #f3ece4; color: #96552e; }
+  .hint { font-size: 12px; color: #a39a8e; margin-top: 5px; font-style: italic; }
   .book {
     flex: none; text-decoration: none; font-size: 14px; font-weight: 500;
     padding: 9px 16px; border-radius: 999px; transition: all .15s ease; white-space: nowrap;
@@ -301,6 +302,13 @@
 
     list.sort(function (a, b) { return a.start - b.start; });
 
+    // Le planning de Champel Santé s'ouvre toujours sur la semaine en cours
+    // (aucun paramètre d'URL n'est accepté) : au-delà de cette semaine, on
+    // indique au client jusqu'où naviguer une fois sur leur site.
+    var wd = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      .indexOf(new Intl.DateTimeFormat('en-US', { timeZone: TZ, weekday: 'short' }).format(now));
+    var endOfWeekKey = fmtKey.format(new Date(now.getTime() + (6 - wd) * 86400000));
+
     var html = '';
     var lastKey = '';
     list.forEach(function (c) {
@@ -324,6 +332,10 @@
             '<div class="place"><span class="dot ' + cls + '"></span>' + esc(c.place) +
               (c.price ? ' — ' + esc(c.price) : '') + '</div>' +
             (c.full ? '<span class="tag full">Complet</span>' : '') +
+            (c.studio === 'champel' && fmtKey.format(c.start) > endOfWeekKey
+              ? '<div class="hint">Leur planning s’ouvre sur la semaine en cours&nbsp;: avancez jusqu’au ' +
+                esc(fmtDay.format(c.start)) + '.</div>'
+              : '') +
           '</div>' +
           (c.full
             ? '<span class="book disabled">Complet</span>'
