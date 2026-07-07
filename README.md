@@ -9,8 +9,9 @@ instructrice de Pilates, à partir des deux studios où elle enseigne :
 Pour chaque cours, la page affiche : la date, l'heure, la durée, le type de cours,
 le lieu, le prix, l'état (complet ou non) et un bouton **Réserver** :
 
-- **El Pilates Studio** : lien direct vers la réservation du cours précis
-  (`backoffice.bsport.io/customer/payment/offer/<id du cours>`).
+- **El Pilates Studio** : lien vers la fiche bsport du cours précis
+  (`backoffice.bsport.io/booker-module-s/5489/<id du cours>`), qui présente la
+  séance avant de proposer la réservation.
 - **Champel Santé** : lien vers la page planning du site — leur réservation
   s'ouvre dans une fenêtre sur cette page, il n'existe pas d'URL par séance.
 
