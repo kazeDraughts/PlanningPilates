@@ -140,6 +140,18 @@
     text-decoration: underline; text-underline-offset: 3px;
   }
 
+  .gallery {
+    display: flex; gap: 10px; margin-top: 18px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    border-radius: 16px;
+  }
+  .gallery::-webkit-scrollbar { display: none; }
+  .gallery img {
+    height: 150px; width: auto; flex: none; border-radius: 14px;
+    object-fit: cover; scroll-snap-align: start;
+  }
+
   footer {
     margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line);
     font-size: 13.5px; color: var(--ink-soft); text-align: center;
@@ -176,6 +188,12 @@
       </div>
     </div>
     <button class="bio-toggle" id="bio-toggle" type="button">Lire la suite</button>
+    <div class="gallery" aria-label="Photos des cours de Lou">
+      <img src="photos/cours-1.jpg" alt="Cours de Pilates Mat au studio, exercices avec petits ballons" loading="lazy">
+      <img src="photos/cours-2.jpg" alt="Cours de Pilates en événement, salle au lustre" loading="lazy">
+      <img src="photos/cours-3.jpg" alt="Lou et ses élèves après un cours au studio" loading="lazy">
+      <img src="photos/cours-4.jpg" alt="Séance de sport santé en entreprise" loading="lazy">
+    </div>
   </section>
 
   <div class="filters" id="filters" hidden>
