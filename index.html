@@ -46,7 +46,8 @@
   .filters {
     display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
     margin: 28px 0 8px; position: sticky; top: 0; z-index: 5;
-    padding: 12px 0; background: linear-gradient(var(--bg) 80%, transparent);
+    padding: 12px 0; background: var(--bg);
+    box-shadow: 0 6px 12px -8px rgba(45, 42, 38, .12);
   }
   .chip {
     border: 1px solid var(--line); background: var(--card); color: var(--ink-soft);
@@ -110,6 +111,29 @@
 
   .empty { text-align: center; color: var(--ink-soft); padding: 56px 0; font-weight: 300; }
 
+  .about {
+    margin-top: 72px; padding: 40px 28px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 24px;
+    text-align: center;
+  }
+  .about img {
+    width: 148px; height: 148px; border-radius: 50%; object-fit: cover;
+    border: 4px solid var(--accent-soft);
+  }
+  .about h2 {
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 28px;
+    margin: 18px 0 4px;
+  }
+  .about .role {
+    color: var(--accent); font-size: 13px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .about .bio {
+    text-align: left; margin-top: 22px; color: var(--ink-soft);
+    font-size: 15.5px; font-weight: 300; line-height: 1.7;
+  }
+  .about .bio p + p { margin-top: 14px; }
+
   footer {
     margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line);
     font-size: 13.5px; color: var(--ink-soft); text-align: center;
@@ -141,6 +165,19 @@
   <div id="content">
     <div class="status"><div class="spin"></div>Chargement du planning…</div>
   </div>
+
+  <section class="about">
+    <img src="lou.jpg" alt="Lou Carretero, coach sportive et instructrice de Pilates" width="148" height="148">
+    <h2>Lou Carretero</h2>
+    <div class="role">Coach sportive diplômée</div>
+    <div class="bio">
+      <p>Je suis Lou, coach sportive diplômée, spécialisée en Pilates Mat, Reformer et Sport Santé.</p>
+      <p>Mon parcours m’a conduite à évoluer au sein de studios de Pilates, d’organismes de formation sportive ainsi que dans le cadre d’interventions en milieu hospitalier. Ces expériences m’ont permis de développer une approche à la fois technique, rigoureuse et personnalisée.</p>
+      <p>Très attachée aux principes fondamentaux de la méthode Pilates, j’accorde une attention particulière à la précision du mouvement, à la respiration et à l’alignement postural. Chaque séance est conçue pour s’adapter à vos besoins, à vos objectifs et à vos éventuelles contraintes physiques, afin de vous permettre de progresser de manière efficace et en toute sécurité.</p>
+      <p>Mon enseignement allie exigence, pédagogie et bienveillance, avec pour objectif de développer votre force, votre mobilité, votre stabilité et votre conscience corporelle.</p>
+      <p>À travers un accompagnement attentif et des séances de qualité, je vous aide à construire un corps plus équilibré, plus fort et plus fonctionnel, dans le respect des principes authentiques du Pilates.</p>
+    </div>
+  </section>
 
   <footer>
     <div class="studios">
