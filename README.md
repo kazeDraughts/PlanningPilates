@@ -7,8 +7,12 @@ instructrice de Pilates, à partir des deux studios où elle enseigne :
 - **Champel Santé** (Genève, Suisse) — réservations via [champelsante.ch/planning](https://www.champelsante.ch/planning)
 
 Pour chaque cours, la page affiche : la date, l'heure, la durée, le type de cours,
-le lieu, le prix, l'état (complet ou non) et un bouton **Réserver** qui renvoie vers
-le site du studio concerné.
+le lieu, le prix, l'état (complet ou non) et un bouton **Réserver** :
+
+- **El Pilates Studio** : lien direct vers la réservation du cours précis
+  (`backoffice.bsport.io/customer/payment/offer/<id du cours>`).
+- **Champel Santé** : lien vers la page planning du site — leur réservation
+  s'ouvre dans une fenêtre sur cette page, il n'existe pas d'URL par séance.
 
 ## Fonctionnement
 
