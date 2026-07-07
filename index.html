@@ -111,9 +111,9 @@
 
   .empty { text-align: center; color: var(--ink-soft); padding: 56px 0; font-weight: 300; }
 
-  .reviews { margin-top: 64px; }
+  .reviews { margin-top: 34px; }
   .reviews h2 {
-    font-family: 'Fraunces', serif; font-weight: 500; font-size: 26px;
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 24px;
     text-align: center;
   }
   .reviews .rev-sub {
@@ -226,16 +226,6 @@
     </div>
   </section>
 
-  <div class="filters" id="filters" hidden>
-    <button class="chip active" data-studio="all">Tous les lieux</button>
-    <button class="chip" data-studio="elpilates">El Pilates Studio</button>
-    <button class="chip" data-studio="champel">Champel Santé</button>
-  </div>
-
-  <div id="content">
-    <div class="status"><div class="spin"></div>Chargement du planning…</div>
-  </div>
-
   <section class="reviews">
     <h2>Avis des élèves</h2>
     <div class="rev-sub">Des retours laissés après les cours de Lou</div>
@@ -266,6 +256,17 @@
       </figure>
     </div>
   </section>
+
+  <div class="filters" id="filters" hidden>
+    <button class="chip active" data-studio="all">Tous les lieux</button>
+    <button class="chip" data-studio="elpilates">El Pilates Studio</button>
+    <button class="chip" data-studio="champel">Champel Santé</button>
+  </div>
+
+  <div id="content">
+    <div class="status"><div class="spin"></div>Chargement du planning…</div>
+  </div>
+
 
   <footer>
     <div class="studios">
@@ -472,6 +473,24 @@
     html += '</div>';
     content.innerHTML = html;
   }
+
+  // Fait défiler les avis tout seul, jusqu'au premier geste de l'utilisateur.
+  (function () {
+    var track = document.querySelector('.rev-track');
+    if (!track) return;
+    var stopped = false;
+    ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) {
+      track.addEventListener(ev, function () { stopped = true; }, { passive: true });
+    });
+    var timer = setInterval(function () {
+      if (stopped) { clearInterval(timer); return; }
+      var cards = track.querySelectorAll('.rev-card');
+      if (!cards.length) return;
+      var step = cards[0].offsetWidth + 12;
+      var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - step / 2;
+      track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + step, behavior: 'smooth' });
+    }, 4000);
+  })();
 
   document.getElementById('bio-toggle').addEventListener('click', function () {
     var more = document.getElementById('bio-more');
