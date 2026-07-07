@@ -111,6 +111,36 @@
 
   .empty { text-align: center; color: var(--ink-soft); padding: 56px 0; font-weight: 300; }
 
+  .reviews { margin-top: 64px; }
+  .reviews h2 {
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 26px;
+    text-align: center;
+  }
+  .reviews .rev-sub {
+    text-align: center; color: var(--ink-soft); font-size: 14px;
+    font-weight: 300; margin-top: 4px;
+  }
+  .rev-track {
+    display: flex; gap: 12px; margin-top: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    padding-bottom: 6px;
+  }
+  .rev-track::-webkit-scrollbar { display: none; }
+  .rev-card {
+    flex: 0 0 82%; max-width: 420px; scroll-snap-align: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    box-shadow: 0 1px 2px rgba(45,42,38,.04);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .rev-stars { color: #d9a441; font-size: 15px; letter-spacing: 3px; }
+  .rev-text {
+    color: var(--ink-soft); font-size: 15px; font-weight: 300;
+    line-height: 1.65; font-style: italic;
+  }
+  @media (min-width: 560px) { .rev-card { flex-basis: 46%; } }
+
   .about {
     margin-top: 26px; padding: 30px 26px;
     background: var(--card); border: 1px solid var(--line); border-radius: 24px;
@@ -205,6 +235,37 @@
   <div id="content">
     <div class="status"><div class="spin"></div>Chargement du planning…</div>
   </div>
+
+  <section class="reviews">
+    <h2>Avis des élèves</h2>
+    <div class="rev-sub">Des retours laissés après les cours de Lou</div>
+    <div class="rev-track" aria-label="Avis des élèves">
+      <figure class="rev-card">
+        <div class="rev-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote class="rev-text">« Super cours de Pilates ! Lou est une prof géniale ! Très bonne ambiance et studio agréable ! J’ai passé un excellent moment, je recommande sans hésiter :) »</blockquote>
+      </figure>
+      <figure class="rev-card">
+        <div class="rev-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote class="rev-text">« J’ai débuté il y a 1 mois avec Lou, et je passe à chaque fois de très bonnes séances. L’ambiance est agréable et le studio est bien équipé. La professeur prend le temps de corriger les postures, ce qui permet vraiment de sentir le travail qu’on fait. »</blockquote>
+      </figure>
+      <figure class="rev-card">
+        <div class="rev-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote class="rev-text">« Merci à Lou pour cette première expérience pilates ! Elle a été top et très pro ! »</blockquote>
+      </figure>
+      <figure class="rev-card">
+        <div class="rev-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote class="rev-text">« Lou est très douce et très motivante, super cours de pilates pour bien commencer la journée. »</blockquote>
+      </figure>
+      <figure class="rev-card">
+        <div class="rev-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote class="rev-text">« Deuxième séance de Pilates Mat avec Lou. Super cours avec exercices variés et adaptés à tous ! »</blockquote>
+      </figure>
+      <figure class="rev-card">
+        <div class="rev-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote class="rev-text">« Lou juste incroyable, merci, je reviens c’est sûr ! »</blockquote>
+      </figure>
+    </div>
+  </section>
 
   <footer>
     <div class="studios">
