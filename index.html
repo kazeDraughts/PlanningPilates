@@ -235,7 +235,9 @@
           title: o.name_override || activityNames[o.meta_activity] || 'Cours de Pilates',
           place: places[o.establishment] || 'El Pilates Studio',
           full: o.available === false,
-          price: o.price ? Math.round(parseFloat(o.price)) + ' €' : '',
+          // Le champ price de l'API bsport est un tarif interne que le studio
+          // n'affiche pas publiquement (paiement via cartes/abonnements) : on ne le montre pas.
+          price: '',
           bookUrl: BSPORT.calendarUrl + '&date=' + fmtKey.format(start) +
                    '&coaches=' + BSPORT.coachId
         };
